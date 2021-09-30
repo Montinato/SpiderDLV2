@@ -1,15 +1,18 @@
 package dev.spiderdlv2;
 import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+//import java.awt.event.ComponentEvent;
+//import java.awt.event.ComponentListener;
+//import java.awt.event.WindowEvent;
+//import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import dev.spiderdlv2.input.*;
+
 import dev.spiderdlv2.input.ComponentManager;
+import dev.spiderdlv2.input.MouseManager;
+//import dev.spiderdlv2.input.*;
+//import dev.spiderdlv2.input.ComponentManager;
 import dev.spiderdlv2.input.WindowsManager;
 
 import javax.swing.ImageIcon;
@@ -29,9 +32,9 @@ public class SpiderDLV2 extends JFrame
 	    public static boolean debug;
 	    
 		//Input
-		private ComponentManager componentManager;
-		private WindowsManager windowsManager;
-		private MouseManager mouseManager;
+	    public static ComponentManager componentManager;
+		public static WindowsManager windowsManager;
+		
 
 	    static {
 	        try {
@@ -71,12 +74,10 @@ public class SpiderDLV2 extends JFrame
 	   
 	        componentManager = new ComponentManager();
 	        windowsManager = new WindowsManager();
-	        mouseManager = new MouseManager();
+
 	        
 	        
 	        this.addComponentListener(componentManager);
-			this.addMouseListener(mouseManager);
-			this.addMouseMotionListener(mouseManager);
 			this.addWindowListener(windowsManager);
 
 

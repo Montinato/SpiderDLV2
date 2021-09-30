@@ -1,10 +1,11 @@
 package dev.spiderdlv2.input;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-
-import dev.spiderdlv2.*;
+import dev.spiderdlv2.SpiderDLV2;
 
 public class ComponentManager implements ComponentListener
 {
@@ -43,6 +44,8 @@ public class ComponentManager implements ComponentListener
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 

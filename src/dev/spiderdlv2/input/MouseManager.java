@@ -1,5 +1,9 @@
 package dev.spiderdlv2.input;
 
+import dev.spiderdlv2.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,16 +19,10 @@ import dev.spiderdlv2.Tavolo;
 
 public class MouseManager implements MouseListener,MouseMotionListener
 {
-	
-	// MOUSE LISTENER
-	
-	
-	
-
-    @Override
+     @Override
     public void mousePressed(MouseEvent e) 
     {
-    	System.out.println("Entro in MousePressed() ");
+    	System.out.println("MousePressed() OK ");
     	
     	
         int mouseX = e.getX();
@@ -37,9 +35,7 @@ public class MouseManager implements MouseListener,MouseMotionListener
         int startFrom = -1;
         
 
-    	
-
-        outer: for (int i = 0; i < SpiderDLV2.tavolo.pile; i++) {
+          outer: for (int i = 0; i < SpiderDLV2.tavolo.pile; i++) {
             int carte = SpiderDLV2.tavolo.piles[i].size();
 
             for (int j = carte - 1; j >= 0; j--) {
@@ -51,12 +47,16 @@ public class MouseManager implements MouseListener,MouseMotionListener
                     break outer;
                 }
             }
+            
+           
         }
         
         
 
         if (index != -1) {
             if (SpiderDLV2.tavolo.piles[index].get(startFrom).isFaceDown()) {
+            	
+            	System.out.println("MouseManager1 -> repaint()");
                 return;
             }
 
@@ -89,16 +89,26 @@ public class MouseManager implements MouseListener,MouseMotionListener
                         return;
                     }
                 }
+                
+                System.out.println("MouseManager2 -> repaint()");
+                
             }
 
             SpiderDLV2.tavolo.undoStack.push(new Stato(SpiderDLV2.tavolo.carte, SpiderDLV2.tavolo.piles, SpiderDLV2.tavolo.deck, SpiderDLV2.tavolo.top, SpiderDLV2.tavolo.ptr));
             SpiderDLV2.tavolo.piles[index].removeAll(touched);
             SpiderDLV2.tavolo.muoviPila = touched;
+            
+            for(Carta c : touched)
+            {
+            	System.out.println(c.seme);
+            	System.out.println(c.valore);
+            }
+            
             SpiderDLV2.tavolo.index = index;
             
             
-            System.out.println("MouseManager -> doRepaint()");
-            SpiderDLV2.tavolo.doRepaint();
+            System.out.println("MouseManager3 -> repaint()");
+            SpiderDLV2.tavolo.repaint();
             
             
         }
@@ -127,7 +137,7 @@ public class MouseManager implements MouseListener,MouseMotionListener
         
         
         
-        System.out.println("Esco da MousePressed() ");
+       // System.out.println("Esco da MousePressed() ");
     }
 
    
@@ -135,7 +145,7 @@ public class MouseManager implements MouseListener,MouseMotionListener
 	@Override
     public void mouseReleased(MouseEvent e) 
     {
-    	System.out.println("Metodo mouseReleased(): ");
+    	System.out.println("MouseReleased() OK");
     	
         if (SpiderDLV2.tavolo.muoviPila != null) 
         {
@@ -210,7 +220,7 @@ public class MouseManager implements MouseListener,MouseMotionListener
 
                         if (SpiderDLV2.tavolo.carte.size() == 104) {
                         	SpiderDLV2.tavolo.muoviPila = null;
-                        	SpiderDLV2.tavolo.doRepaint();
+                        	SpiderDLV2.tavolo.repaint();
                             
                             System.out.println("Le carte raccolte sono 104.");
                             System.out.println("La partita finisce qui.");
@@ -270,8 +280,8 @@ public class MouseManager implements MouseListener,MouseMotionListener
             SpiderDLV2.tavolo.fixPiles(SpiderDLV2.tavolo.index);
             SpiderDLV2.tavolo.muoviPila = null;
 
-            System.out.println("MouseManager 2-> doRepaint()");
-            SpiderDLV2.tavolo.doRepaint();
+            System.out.println("MouseManager 2-> repaint()");
+            SpiderDLV2.tavolo.repaint();
 
             if (SpiderDLV2.tavolo.carte.size() == 104) {
             	SpiderDLV2.tavolo.showPlayAgainDialog();
@@ -281,7 +291,7 @@ public class MouseManager implements MouseListener,MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
-    	System.out.println("Metodo MouseDragged ");
+    	System.out.println("MouseDragged OK");
         if (SpiderDLV2.tavolo.muoviPila != null) {
             int mouseX = e.getX();
             int mouseY = e.getY();
@@ -294,8 +304,9 @@ public class MouseManager implements MouseListener,MouseMotionListener
             SpiderDLV2.tavolo.prevMX = mouseX;
             SpiderDLV2.tavolo.prevMY = mouseY;
 
-            System.out.println("MouseDRAGGED -> doRepaint()");
-            SpiderDLV2.tavolo.doRepaint();
+            System.out.println("MouseDRAGGED -> repaint()");
+            SpiderDLV2.tavolo.repaint();
+            
         }
     }
 
@@ -317,6 +328,8 @@ public class MouseManager implements MouseListener,MouseMotionListener
     @Override
     public void mouseMoved(MouseEvent e) {
     }
+    
+    
     
 
 }
